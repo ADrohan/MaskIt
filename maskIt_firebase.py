@@ -5,6 +5,7 @@ import datetime
 import numpy as np
 import cv2
 import storeFileFB
+import sys
 #import json
 
 # Find port and create a new board
@@ -34,9 +35,12 @@ for LED in LEDs:
 # loading classifiers
 face_cascade = cv2.CascadeClassifier('/home/pi/opencv/data/haarcascades/haarcascade_frontalface_default.xml')
 
-# initialise pi camera
+# initialise pi camera. Exit if the camera is not working
 cap = cv2.VideoCapture(-1) # open video capture object
-print("camera initialized")
+if cap is None:
+    sys.exit("Camera Could not be opened")
+else:
+    print("camera initialized")
 
 # Face detection function
 def capture_image():
